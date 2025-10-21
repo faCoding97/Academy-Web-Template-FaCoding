@@ -1,0 +1,118 @@
+{
+  "site": {
+    "name": "ElixFlare Academy",
+    "baseUrl": "https://academy.elixflare.com",
+    "logo": "/og.png"
+  },
+  "nav": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Courses",
+      "href": "/courses"
+    },
+    {
+      "label": "About",
+      "href": "/about"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact"
+    }
+  ],
+  "hero": {
+    "title": "Learn modern web development, faster.",
+    "subtitle": "Clean code, practical projects, and future-proof skills.",
+    "ctaLabel": "Browse Courses",
+    "ctaHref": "/courses",
+    "image": "/images/hero/hero-illustration.png"
+  },
+  "courses": [
+    {
+      "slug": "nextjs-fundamentals",
+      "title": "Next.js Fundamentals",
+      "level": "Beginner",
+      "duration": "4 weeks",
+      "price": "Free",
+      "thumbnail": "/images/courses/nextjs-fundamentals.png",
+      "tags": ["Next.js", "React", "TypeScript"],
+      "shortDescription": "Start building production-grade apps with the App Router.",
+      "description": "A comprehensive introduction to Next.js 14+ App Router, covering routing, data fetching, static generation, performance best practices, and deployment.",
+      "syllabus": [
+        "Project setup & App Router",
+        "File-based routing",
+        "Static generation & metadata",
+        "Images, fonts, and optimization",
+        "Deployment basics"
+      ]
+    },
+    {
+      "slug": "react-hooks-deep-dive",
+      "title": "React Hooks Deep Dive",
+      "level": "Intermediate",
+      "duration": "3 weeks",
+      "price": "Free",
+      "thumbnail": "/images/courses/react-hooks.png",
+      "tags": ["React", "Hooks", "State"],
+      "shortDescription": "Master useState, useEffect, useMemo, and custom hooks.",
+      "description": "Learn to structure state, side-effects, memoization, and performance patterns with idiomatic hooks and clean abstractions.",
+      "syllabus": [
+        "Thinking in hooks",
+        "Core hooks in practice",
+        "Custom hooks patterns",
+        "Performance & memoization",
+        "Testing hooks"
+      ]
+    },
+    {
+      "slug": "typescript-for-devs",
+      "title": "TypeScript for Devs",
+      "level": "Intermediate",
+      "duration": "2 weeks",
+      "price": "Free",
+      "thumbnail": "/images/courses/typescript.png",
+      "tags": ["TypeScript", "Typing", "Tooling"],
+      "shortDescription": "Write safer, more maintainable React & Next code.",
+      "description": "Strong typing for components, props, utility types, generics, and integrating TypeScript with modern tooling.",
+      "syllabus": [
+        "TypeScript basics & config",
+        "Types for React components",
+        "Generics & utility types",
+        "Error handling & narrowing",
+        "Tooling & linting"
+      ]
+    },
+    {
+      "slug": "tailwind-ui-essentials",
+      "title": "Tailwind UI Essentials",
+      "level": "Beginner",
+      "duration": "1 week",
+      "price": "Free",
+      "thumbnail": "/images/courses/tailwind.png",
+      "tags": ["Tailwind CSS", "Design", "Accessibility"],
+      "shortDescription": "Build clean, responsive interfaces quickly.",
+      "description": "Learn Tailwind's mental model, responsive design, spacing systems, and how to ship accessible, consistent UI.",
+      "syllabus": [
+        "Utility-first workflow",
+        "Responsive layouts",
+        "Components & patterns",
+        "Accessibility essentials",
+        "Theming & tokens"
+      ]
+    }
+  ],
+  "about": {
+    "heading": "About ElixFlare Academy",
+    "content": "We teach modern web development with concise, hands-on lessons that focus on real-world skills. Learn by doing with projects you can deploy and share."
+  },
+  "contact": {
+    "email": "hello@elixflare.com",
+    "location": "Port Elizabeth, South Africa",
+    "note": "This is a demo UI only; no messages are sent."
+  },
+  "footer": {
+    "year": 2025
+  }
+}

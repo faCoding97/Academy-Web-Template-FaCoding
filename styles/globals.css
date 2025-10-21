@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html, body {
+  @apply bg-white text-gray-900;
+}
+
+::selection {
+  background: theme('colors.brand.200');
+  color: #111827;
+}
+
+:focus-visible {
+  outline: 2px solid theme('colors.brand.600');
+  outline-offset: 2px;
+}
+
+/* Decorative radial grid for hero */
+.hero-pattern {
+  background-image:
+    radial-gradient(24rem 24rem at 100% -2rem, rgba(249,115,22,0.08), transparent 60%),
+    radial-gradient(24rem 24rem at -2rem 100%, rgba(251,146,60,0.08), transparent 60%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
