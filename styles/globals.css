@@ -2,25 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body {
+html,
+body {
   @apply bg-white text-gray-900;
 }
 
 ::selection {
-  background: theme('colors.brand.200');
+  background: theme("colors.brand.200");
   color: #111827;
 }
 
 :focus-visible {
-  outline: 2px solid theme('colors.brand.600');
+  outline: 2px solid theme("colors.brand.600");
   outline-offset: 2px;
 }
 
 /* Decorative radial grid for hero */
 .hero-pattern {
-  background-image:
-    radial-gradient(24rem 24rem at 100% -2rem, rgba(249,115,22,0.08), transparent 60%),
-    radial-gradient(24rem 24rem at -2rem 100%, rgba(251,146,60,0.08), transparent 60%);
+  background-image: radial-gradient(
+      24rem 24rem at 100% -2rem,
+      rgba(249, 115, 22, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(
+      24rem 24rem at -2rem 100%,
+      rgba(251, 146, 60, 0.08),
+      transparent 60%
+    );
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -30,4 +38,28 @@ html, body {
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Utilities for animation timing */
+@layer utilities {
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+}
+
+/* Floating blob keyframes */
+@keyframes blob {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(20px, -30px) scale(1.05);
+  }
+  66% {
+    transform: translate(-20px, 10px) scale(0.98);
+  }
+}
+.animate-blob {
+  animation: blob 16s ease-in-out infinite;
 }
