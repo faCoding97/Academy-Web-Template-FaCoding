@@ -5,13 +5,34 @@ import Link from "next/link";
 import siteData from "@/data/site.json";
 import Container from "./Container";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
+
+// ✅ تایپ امن برای hero (imageAlt اختیاری)
+type HeroModel = {
+  title: string;
+  subtitle?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+  image?: string;
+  imageAlt?: string;
+};
+
+// helper: روی دستگاه‌های تاچ، افکت ماوس نده
+const hasFinePointer = () =>
+  typeof window !== "undefined" && matchMedia("(pointer:fine)").matches;
 
 export default function Hero() {
-  const hero = siteData.hero;
-  const cardRef = useRef<HTMLDivElement>(null);
+  // cast امن: اجازه بده imageAlt اختیاری باشه
+  const hero = useMemo(
+    () =>
+      ({
+        ...siteData.hero,
+      }) as HeroModel,
+    []
+  );
 
   // ---- Parallax tilt for image card ----
+  const cardRef = useRef<HTMLDivElement>(null);
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const rx = useTransform(y, [-50, 50], [8, -8]);
@@ -20,6 +41,8 @@ export default function Hero() {
   const rys = useSpring(ry, { stiffness: 120, damping: 12 });
 
   function handleMove(e: React.MouseEvent) {
+    // روی تاچ کاری نکن
+    if (!hasFinePointer()) return;
     const rect = cardRef.current?.getBoundingClientRect();
     if (!rect) return;
     const dx = e.clientX - (rect.left + rect.width / 2);
@@ -32,13 +55,17 @@ export default function Hero() {
     y.set(0);
   }
 
+  const title = hero.title ?? "Learn by building";
+  const subtitle = hero.subtitle ?? "Hands-on lessons, modern stack.";
+  const ctaHref = hero.ctaHref ?? "/courses";
+  const ctaLabel = hero.ctaLabel ?? "Browse courses";
+  const imgSrc = hero.image ?? "/og-image.png";
+  const imgAlt = hero.imageAlt ?? "Learning illustration";
+
   return (
     <section className="relative overflow-hidden pt-8 sm:pt-12">
-      {/* Background */}
-      <div
-        aria-hidden
-        className="pointer-events-none fixed inset-0 overflow-hidden w-screen"
-      >
+      {/* Background — absolute در سکشن تا با سایر سکشن‌ها تداخل نکنه */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         {/* soft blobs */}
         <div className="absolute -top-[20%] -left-[10%] h-[40rem] w-[40rem] rounded-full bg-brand-300/40 blur-3xl animate-blob motion-reduce:animate-none" />
         <div className="absolute -bottom-[10%] -right-[10%] h-[36rem] w-[36rem] rounded-full bg-brand-500/30 blur-3xl animate-blob animation-delay-2000 motion-reduce:animate-none" />
@@ -87,18 +114,20 @@ export default function Hero() {
                 }}
                 className="mt-3 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl"
               >
-                {hero.title}
+                {title}
               </motion.h1>
 
-              <motion.p
-                variants={{
-                  hidden: { opacity: 0, y: 10 },
-                  show: { opacity: 1, y: 0 },
-                }}
-                className="mt-4 text-lg text-gray-700"
-              >
-                {hero.subtitle}
-              </motion.p>
+              {subtitle && (
+                <motion.p
+                  variants={{
+                    hidden: { opacity: 0, y: 10 },
+                    show: { opacity: 1, y: 0 },
+                  }}
+                  className="mt-4 text-lg text-gray-700"
+                >
+                  {subtitle}
+                </motion.p>
+              )}
 
               <motion.div
                 variants={{
@@ -108,10 +137,10 @@ export default function Hero() {
                 className="mt-6 flex items-center gap-3"
               >
                 <Link
-                  href={hero.ctaHref}
+                  href={ctaHref}
                   className="group inline-flex items-center rounded-xl bg-brand-600 px-5 py-3 text-white shadow-lg shadow-brand-600/20 transition hover:bg-brand-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-700"
                 >
-                  {hero.ctaLabel}
+                  {ctaLabel}
                   <svg
                     className="ml-2 size-4 shrink-0 transition-transform group-hover:translate-x-0.5"
                     viewBox="0 0 24 24"
@@ -158,7 +187,7 @@ export default function Hero() {
             </motion.div>
 
             {/* Right: image */}
-            {hero.image ? (
+            {imgSrc ? (
               <motion.div
                 ref={cardRef}
                 onMouseMove={handleMove}
@@ -169,17 +198,18 @@ export default function Hero() {
                 <motion.div
                   style={{ rotateX: rxs, rotateY: rys }}
                   className="relative size-full overflow-hidden rounded-2xl border border-brand-100 shadow-[0_12px_40px_rgba(2,6,23,0.08)] will-change-transform motion-reduce:transform-none"
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: hasFinePointer() ? 1.02 : 1 }}
                   transition={{ type: "spring", stiffness: 160, damping: 14 }}
                 >
                   <Image
-                    src={hero.image}
-                    alt={hero.imageAlt ?? "Learning illustration"}
+                    src={imgSrc}
+                    alt={imgAlt}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover"
                     priority
                   />
+
                   {/* glossy sweep */}
                   <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100">
                     <div className="absolute -inset-40 rotate-12 bg-gradient-to-r from-white/0 via-white/20 to-white/0" />
